@@ -1,0 +1,7 @@
+/build
+node_modules
+/docker
+/.vscode
+.env
+*.lock
+*.log

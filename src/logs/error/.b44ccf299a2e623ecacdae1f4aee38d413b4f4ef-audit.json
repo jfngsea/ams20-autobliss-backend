@@ -1,0 +1,24 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\joao-\\Desktop\\autobliss\\typescript-express-starter\\src\\logs\\error\\.b44ccf299a2e623ecacdae1f4aee38d413b4f4ef-audit.json",
+    "files": [
+        {
+            "date": 1610133017141,
+            "name": "C:\\Users\\joao-\\Desktop\\autobliss\\typescript-express-starter\\src\\logs\\error\\2021-01-08.error.log",
+            "hash": "2c0278c4c020b4fd4b82f384edc1d443"
+        },
+        {
+            "date": 1610150607250,
+            "name": "C:\\Users\\joao-\\Desktop\\autobliss\\typescript-express-starter\\src\\logs\\error\\2021-01-09.error.log",
+            "hash": "2f665a6c8405b94568bed96f8412d684"
+        },
+        {
+            "date": 1610236814678,
+            "name": "C:\\Users\\joao-\\Desktop\\autobliss\\typescript-express-starter\\src\\logs\\error\\2021-01-10.error.log",
+            "hash": "e5f01063aa30ff439a7579dd0217ec5f"
+        }
+    ]
+}

@@ -1,0 +1,97 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="/static/app.js" type="application/javascript"></script>
+    <script defer src="/static/js/auth.js" type="application/javascript"></script>
+    <script defer src="/static/js/product.js" type="application/javascript"></script>
+</head>
+
+<body>
+    <h2>Auth Api</h2>
+    <hr>
+    <p>ID:</p>
+    <p id="userId"></p>
+    <p>Role:</p>
+    <p id="userRole"></p>
+    <hr>
+    <form id="loginForm" name="loginform">
+        <input type="email" name="email">
+        <input type="password" name="password">
+        <input type="submit" value="Login">
+    </form>
+    <hr>
+    <form id="signupform" name="signupform">
+        <input type="text" name="name" placeholder="Name">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <input type="role" name="role" placeholder="Role (user, vendor)">
+        <input type="submit" value="Sign Up">
+    </form>
+    <hr>
+    <button id="logoutButton">Log Out</button>
+    <hr>
+
+    <h2>Products Api</h2>
+    <hr>
+    <form id="searchForm" name="searchForm">
+        <input disabled type="search" name="query" placeholder="Search">
+        <button disabled type="button" id="advSearchButton">Advenced search</button>
+        <div hidden id="advancedSearch">
+            <input type="text" name="carBrand" placeholder="Car Brand">
+            <input type="text" name="carModel" placeholder="Car Model">
+            <input type="text" name="makerId" placeholder="Manufacturer Code">
+            <input type="text" name="ean" placeholder="EAN">
+        </div>
+        <input type="submit" value="Search">
+    </form>
+
+    <hr>
+    <button onclick='refreshSuggestions()'>Refresh Suggestions</button>
+    <div id="suggestions"></div>
+    <hr>
+
+    <div id="vendorSection">
+        <h4>For Vendors</h4>
+        <hr>
+
+        <div id="addNewProduct">
+            <h6>Add new product</h6>
+            <form id="newproductForm" name="newproductform">
+                <input type="text" name="name" placeholder="name">
+                <input type="text" name="carBrand" placeholder="Car Brand">
+                <input type="text" name="carModel" placeholder="Car Model">
+                <input type="number" name="price" placeholder="Price">
+                <input type="number" name="quantity" placeholder="Quantity">
+                <input type="number" name='makerId' placeholder="Manufacturer Code">
+                <input type="text" name="ean" placeholder="EAN">
+                <input type="submit" value="Add">
+            </form>
+            <hr>
+        </div>
+
+        <div id="editProduct">
+            <h6>Edit products</h6>
+            <button id='getVendorProducts'>Get Products</button>
+            <div id="editPrdShow"></div>
+            <button hidden id="clearVendorProducts">Clear</button>
+        </div>
+    </div>
+
+
+    <div hidden id="templates">
+        <div id="product-template">
+            <div class="product">
+                <p calss="#name"></p>
+                <p name="#price"></p>
+                <p name="#carBrand"></p>
+                <p name="#carModel"></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

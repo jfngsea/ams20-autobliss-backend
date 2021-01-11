@@ -10,7 +10,8 @@
     "build": "tsc",
     "test": "jest --forceExit --detectOpenHandles",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "hlogs":"heroku logs --app dry-meadow-84562 --tail "
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

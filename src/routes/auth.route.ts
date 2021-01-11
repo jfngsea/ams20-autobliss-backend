@@ -6,7 +6,7 @@ import authMiddleware from '../middlewares/auth.middleware';
 import validationMiddleware from '../middlewares/validation.middleware';
 
 class AuthRoute implements Route {
-  path: string = '/api/auth';
+  path = '/api/auth';
   public router = Router();
   public authController = new AuthController();
 
@@ -18,7 +18,7 @@ class AuthRoute implements Route {
     this.router.post('/signup', validationMiddleware(CreateUserDto, 'body'), this.authController.signUp);
     this.router.post('/login', validationMiddleware(LoginUserDto, 'body'), this.authController.logIn);
     this.router.post('/logout', authMiddleware, this.authController.logOut);
-    this.router.get('/accessToken',this.authController.refreshAccessToken);
+    this.router.get('/accessToken', this.authController.refreshAccessToken);
     this.router.post('/refreshToken', this.authController.refreshRefreshToken);
     this.router.post('/endSessions', authMiddleware, this.authController.endAllSessions);
   }

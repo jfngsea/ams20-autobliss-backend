@@ -1,13 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Subscription {
-    @PrimaryGeneratedColumn('increment', {type: 'int'})
-    subId: number;
+  @PrimaryGeneratedColumn('increment', { type: 'int' })
+  subId: number;
 
-    @Column('int')
-    userId: number;
+  @Column('int')
+  userId: number;
 
-    @Column('int')
-    partId: number
+  @Column('int')
+  partId: number;
 }

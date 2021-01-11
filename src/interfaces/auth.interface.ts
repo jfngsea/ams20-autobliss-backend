@@ -5,7 +5,7 @@ export interface DataStoredInAccessToken {
   id: number;
   name: string;
   email: string;
-  role:string;
+  role: string;
 }
 
 export interface DataStoredInRefreshToken {

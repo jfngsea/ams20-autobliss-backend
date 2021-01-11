@@ -9,8 +9,8 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
     const cookies = req.cookies;
 
     if (cookies && cookies.Authorization) {
-      const secret: string = <string> process.env.JWT_SECRET;
-      const userData = await jwt.verify(<string> req.cookies.Authorization, secret) as User;
+      const secret: string = <string>process.env.JWT_SECRET;
+      const userData = (await jwt.verify(<string>req.cookies.Authorization, secret)) as User;
 
       if (userData) {
         req.user = userData;

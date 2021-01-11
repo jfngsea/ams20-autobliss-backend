@@ -19,7 +19,6 @@ export class SearchDto {
   @IsOptional()
   @IsNumberString()
   ean: number;
-
 }
 
 class ProbuctBaseDto {
@@ -49,14 +48,14 @@ class ProbuctBaseDto {
   ean: number;
 }
 
-export class NewProductDto extends ProbuctBaseDto{
+export class NewProductDto extends ProbuctBaseDto {
   //doesnnt matter what value comes from endpoint, value will be overriden after
   @IsNumber()
   @IsOptional()
   public vendorId: number;
 }
 
-export class UpdateProductDto extends ProbuctBaseDto{
+export class UpdateProductDto extends ProbuctBaseDto {
   @IsNumber()
   public id: number;
 }

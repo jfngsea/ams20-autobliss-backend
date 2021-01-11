@@ -53,11 +53,10 @@ class App {
       .catch((error: Error) => {
         logger.error(`🔴 Unable to connect to the database: ${error}.`);
       });
-      
   }
 
-  private initializeStaticFiles(){
-    this.app.use('/static', express.static(path.join(__dirname, '../public/')))
+  private initializeStaticFiles() {
+    this.app.use('/static', express.static(path.join(__dirname, '../public/')));
   }
 
   private initializeMiddlewares() {
@@ -68,8 +67,6 @@ class App {
       this.app.use(morgan('dev', { stream }));
       this.app.use(cors({ origin: true, credentials: true }));
     }
-    
-    
 
     //this.app.use(hpp());
     //this.app.use(helmet());
@@ -81,10 +78,10 @@ class App {
 
   private initializeRoutes(routes: Routes[]) {
     routes.forEach(route => {
-      this.app.use(<string> route.path, route.router);
+      this.app.use(<string>route.path, route.router);
     });
   }
-/*
+  /*
   private initializeSwagger() {
     const options = {
       swaggerDefinition: {

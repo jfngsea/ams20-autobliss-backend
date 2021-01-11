@@ -27,10 +27,9 @@ export class AuthUser implements User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column('text', {default:'user'})
+  @Column('text', { default: 'user' })
   role: string;
 
-  @Column('int', {default: 0})
-  refreshTokenVersion: number = 0;
-
+  @Column('int', { default: 0 })
+  refreshTokenVersion = 0;
 }

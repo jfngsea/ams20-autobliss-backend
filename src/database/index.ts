@@ -3,12 +3,12 @@ import { ConnectionOptions } from 'typeorm';
 
 const env = process.env.NODE_ENV || 'development';
 
-let ssl:boolean | TlsOptions = (env ==='production') ? {rejectUnauthorized:false} : false ;
+const ssl: boolean | TlsOptions = env === 'production' ? { rejectUnauthorized: false } : false;
 
 const dbConnection: ConnectionOptions = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
-  ssl:ssl,
+  ssl: ssl,
   synchronize: true,
   logging: false,
   entities: [env === 'production' ? 'build/entity/*{.ts,.js}' : 'src/entity/*{.ts,.js}'],

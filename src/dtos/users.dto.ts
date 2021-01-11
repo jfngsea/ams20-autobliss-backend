@@ -11,7 +11,7 @@ export class CreateUserDto {
   public password: string;
 
   @IsString()
-  @IsIn(["user", "vendor"])
+  @IsIn(['user', 'vendor'])
   public role: string;
 }
 

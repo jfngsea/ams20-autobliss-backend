@@ -5,3 +5,6 @@ node_modules
 .env
 *.lock
 *.log
+jest.config.js
+swagger.yaml
+tsconfig_og.json

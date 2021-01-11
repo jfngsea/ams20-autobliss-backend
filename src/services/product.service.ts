@@ -1,71 +1,58 @@
-import { getRepository } from "typeorm";
-import { NewProductDto, SearchDto } from "../dtos/product.dto";
-import { Part } from "../entity/product.entity";
-import HttpException from "../exceptions/HttpException";
-import { User } from "../interfaces/users.interface";
-import { isEmpty } from "../utils/util";
+import { getRepository } from 'typeorm';
+import { NewProductDto, SearchDto } from '../dtos/product.dto';
+import { Part } from '../entity/product.entity';
+import HttpException from '../exceptions/HttpException';
+import { User } from '../interfaces/users.interface';
+import { isEmpty } from '../utils/util';
 
 export default class ProductService {
-    public async getSugestedGeneral(): Promise<Part[]> {
-        try {
-            const data: Part[] = await getRepository(Part)
-                .createQueryBuilder()
-                .select()
-                .orderBy()
-                .limit(6)
-                .getMany()
-            return data;
-        } catch (error) {
-            throw new HttpException(500, "DB error");
-        }
-
+  public async getSugestedGeneral(): Promise<Part[]> {
+    try {
+      const data: Part[] = await getRepository(Part).createQueryBuilder().select().orderBy().limit(6).getMany();
+      return data;
+    } catch (error) {
+      throw new HttpException(500, 'DB error');
     }
+  }
 
-    public async getSugestedUser(user: User): Promise<void> {
+  public async getSugestedUser(user: User): Promise<void> {}
 
-    }
+  public async search(searchData: SearchDto): Promise<Part[]> {
+    const partRepo = getRepository(Part);
+    const result = partRepo.findAndCount({});
 
-    public async search(searchData: SearchDto): Promise<Part[]> {
-        const partRepo = getRepository(Part);
-        const result = partRepo.findAndCount({
-            
-        })
+    return result[0];
+  }
 
-        return result[0];
-    }
+  public async addPart(partData: NewProductDto): Promise<void> {
+    if (isEmpty(partData)) throw new HttpException(400, 'Bad Request');
 
-    public async addPart(partData: NewProductDto): Promise<void> {
-        if (isEmpty(partData)) throw new HttpException(400, "Bad Request");
+    const partRepo = getRepository(Part);
+    partRepo.save({ ...partData });
+  }
 
-        const partRepo = getRepository(Part);
-        partRepo.save({ ...partData });
+  public async getVendorParts(vendor: User): Promise<Part[]> {
+    if (isEmpty(vendor)) throw new HttpException(400, 'Bad Request');
 
-    }
+    const partRepo = getRepository(Part);
 
-    public async getVendorParts(vendor: User): Promise<Part[]> {
-        if (isEmpty(vendor)) throw new HttpException(400, "Bad Request");
+    const data: Part[] = await partRepo.find({ vendorId: vendor.id });
+    return data;
+  }
 
-        const partRepo = getRepository(Part);
-        
-        const data: Part[] = await partRepo.find({vendorId: vendor.id});
-        return data;
-    }
-    
-    public async updateVendorParts(vendor: User, part: Part): Promise<boolean> {
-        
-        if (isEmpty(vendor)) throw new HttpException(400, "Bad Request");
+  public async updateVendorParts(vendor: User, part: Part): Promise<boolean> {
+    if (isEmpty(vendor)) throw new HttpException(400, 'Bad Request');
 
-        const partRepo = getRepository(Part);
-        part.imgUrl="";
+    const partRepo = getRepository(Part);
+    part.imgUrl = '';
 
-        await partRepo.update({id:part.id},part)
-        
-        return true;
-    }
+    await partRepo.update({ id: part.id }, part);
 
-    public async deleteVendorPart(id: number): Promise<void> {
-        const partRepo = getRepository(Part);
-        await partRepo.delete({id:id});
-    }
-    
+    return true;
+  }
+
+  public async deleteVendorPart(id: number): Promise<void> {
+    const partRepo = getRepository(Part);
+    await partRepo.delete({ id: id });
+  }
 }

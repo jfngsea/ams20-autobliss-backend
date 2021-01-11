@@ -1,9 +1,7 @@
 export class SubscriptionService {
-    public createSubscription(): boolean {
-        return false;
-    }
+  public createSubscription(): boolean {
+    return false;
+  }
 
-    public notifyOfChange(productId: number) : void {
-        
-    }
+  public notifyOfChange(productId: number): void {}
 }

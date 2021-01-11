@@ -7,7 +7,7 @@ import authMiddleware from '../middlewares/auth.middleware';
 import checkUserRoleMiddleware from '../middlewares/checkUserRole.middleware';
 
 class ProductRoute implements Route {
-  path: string = '/api/product';
+  path = '/api/product';
   public router = Router();
   public controller = new ProductController();
 

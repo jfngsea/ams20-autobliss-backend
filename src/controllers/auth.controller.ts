@@ -8,7 +8,7 @@ class AuthController {
   public authService = new AuthService();
 
   public signUp = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    console.log("sign up servie")
+    console.log('sign up servie');
     try {
       const userData: CreateUserDto = req.body;
       const signUpUserData: User = await this.authService.signup(userData);
@@ -30,10 +30,10 @@ class AuthController {
         email: findUser.email,
         id: findUser.id,
         name: findUser.name,
-        role: findUser.role
+        role: findUser.role,
       };
 
-      if(findUser) {
+      if (findUser) {
         res.cookie(authCookie.name, authCookie.val, authCookie.options);
         res.cookie(refreshCookie.name, refreshCookie.val, refreshCookie.options);
       }
@@ -49,8 +49,8 @@ class AuthController {
       const userData: User = req.user;
       await this.authService.logout(userData);
 
-      res.cookie('Authorization', "");
-      res.cookie('RefreshToken', "");
+      res.cookie('Authorization', '');
+      res.cookie('RefreshToken', '');
       res.status(200).json({ message: 'User successfully Loged Out' });
     } catch (error) {
       next(error);
@@ -67,7 +67,7 @@ class AuthController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
   public refreshRefreshToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -79,17 +79,17 @@ class AuthController {
 
       res.cookie(refreshCookie.name, refreshCookie.val, refreshCookie.options);
       res.cookie(authCookie.name, authCookie.val, authCookie.options);
-      res.cookie('user', newAccessToken.token.toString().split('.')[1])
+      res.cookie('user', newAccessToken.token.toString().split('.')[1]);
       res.status(200).json({ message: 'Refresh and Access Tokens updated Successfully' });
     } catch (error) {
       next(error);
     }
-  }
+  };
 
   public endAllSessions = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       const refreshTokenReset: boolean = await this.authService.invalidateRefreshTokens(req.user);
-      if(refreshTokenReset){
+      if (refreshTokenReset) {
         res.status(200).json({ message: 'Refresh Tokens revoked Successfully' });
       } else {
         res.status(500).json({ message: 'Refresh Tokens not revoked' });
@@ -97,7 +97,7 @@ class AuthController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 }
 
 export default AuthController;

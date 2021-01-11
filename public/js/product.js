@@ -1,13 +1,45 @@
 /* ----- Product Api Handling ----- */
 
+/* ---- SUBSCRIBE ---- */
+
+function subscribe(partId) {
+    fetch('/api/product/subscribe', {
+        body: JSON.stringify({
+            partId: partId
+        }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        method: "post",
+    })
+        .then(res => {
+            if (res.status === 200) {
+                alert("Subscribed");
+            } else {
+                return res.text();
+            }
+
+        })
+        .then(txt => {
+            alert(txt);
+        })
+        .catch(error => {
+            console.error(error);
+        })
+}
+
+/* ---- Search ---- */
 const searchForm = document.getElementById('searchForm');
+const searchGallery = document.getElementById('searchGallery');
 searchForm.addEventListener('submit', e => {
     e.preventDefault();
     let data = {};
     (new FormData(document.forms['searchForm'])).forEach(function (value, key) {
-        data[key] = value;
+        if (value !== "") {
+            data[key] = value;
+        }
     });
-    console.log(data);
+
     fetch("/api/product/search", {
         body: JSON.stringify(data),
         headers: {
@@ -15,7 +47,30 @@ searchForm.addEventListener('submit', e => {
         },
         method: "post",
     })
-})
+        .then(res => res.text())
+        .then(txt => JSON.parse(txt))
+        .then(parts => {
+            searchGallery.innerHTML ="";
+            parts['results'].forEach((part, idx) => {
+                let div = `<div class="product">
+                                ----------------------
+                                <p class="name">${part.name}</p>
+                                <p class="price">${part.price}</p>
+                                <p class="carBrand">${part.carBrand}</p>
+                                <p class="carModel">${part.carModel}</p>
+                                <button onclick="javascript:subscribe(${part.id})">Subscribe to changes</button>
+                            </div>
+                        `;
+                
+                        searchGallery.insertAdjacentHTML("beforeend", div);
+            });
+        })
+        .catch(error => console.error(error));
+});
+
+document.getElementById('clearSearch').onclick = ev => {
+    searchGallery.innerHTML ="";
+}
 
 const advSearchButton = document.getElementById('advSearchButton');
 advSearchButton.onclick = function () {
@@ -24,31 +79,7 @@ advSearchButton.onclick = function () {
     advSearchButton.style.display = 'none';
 }
 
-function subscribe(partId) {
-    fetch('/api/product/subscribe', {
-        body: JSON.stringify({
-            partId:partId
-        }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-        method: "post",
-    })
-    .then( res => {
-        if(res.status === 200){
-           alert("Subscribed"); 
-        } else {
-            return res.text();
-        }
-        
-    })
-    .then( txt => {
-        alert(txt);
-    })
-    .catch( error => {
-        console.error(error);
-    })
-}
+/*---- SUGGESTIONS ----*/
 
 function refreshSuggestions() {
     console.log("refreshing product suggestions...");
@@ -116,23 +147,23 @@ const getVndrPrd = document.getElementById('getVendorProducts');
 function deleteProduct(prodId) {
     fetch('/api/product/deleteVendorProducts', {
         body: JSON.stringify({
-            id:prodId
+            id: prodId
         }),
         headers: {
             "Content-Type": "application/json",
         },
         method: 'post'
     })
-    .then( () => {
-        getVndrPrd.click();
-    })
-    .catch( error => {
-        console.log(error);
-    })
+        .then(() => {
+            getVndrPrd.click();
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }
 
 getVndrPrd.onclick = () => {
-    prdGallery.innerHTML="";
+    prdGallery.innerHTML = "";
     fetch('/api/product/vendorProducts')
         .then(res => {
             return res.text();
@@ -163,7 +194,7 @@ getVndrPrd.onclick = () => {
                     (new FormData(document.forms[`editProductForm${idx}`])).forEach(function (value, key) {
                         data[key] = value;
                     });
-                    data.id=part.id;
+                    data.id = part.id;
                     fetch("/api/product/vendorProducts", {
                         body: JSON.stringify(data),
                         headers: {

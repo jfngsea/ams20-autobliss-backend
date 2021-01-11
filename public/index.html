@@ -37,8 +37,8 @@
     <h2>Products Api</h2>
     <hr>
     <form id="searchForm" name="searchForm">
-        <input disabled type="search" name="query" placeholder="Search">
-        <button disabled type="button" id="advSearchButton">Advenced search</button>
+        <input type="search" name="query" placeholder="Search">
+        <button type="button" id="advSearchButton">Advanced search</button>
         <div hidden id="advancedSearch">
             <input type="text" name="carBrand" placeholder="Car Brand">
             <input type="text" name="carModel" placeholder="Car Model">
@@ -47,6 +47,9 @@
         </div>
         <input type="submit" value="Search">
     </form>
+
+    <button id="clearSearch">Clear Search Results</button>
+    <div id="searchGallery"></div>
 
     <hr>
     <button onclick='refreshSuggestions()'>Refresh Suggestions</button>

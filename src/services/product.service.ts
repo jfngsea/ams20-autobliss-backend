@@ -20,9 +20,29 @@ export default class ProductService {
 
   public async search(searchData: SearchDto): Promise<Part[]> {
     const partRepo = getRepository(Part);
-    const result = partRepo.findAndCount({});
 
-    return result[0];
+    console.log(searchData);
+
+    const qb = partRepo.createQueryBuilder('parts');
+    qb.where("parts.name like :name", { name:`%${searchData.query}%` });
+
+    if(searchData.carBrand){
+      qb.andWhere("parts.carBrand like :name", { name:`%${searchData.carBrand}%` });
+    }
+
+    if(searchData.carModel){
+      qb.andWhere("parts.carModel like :name", { name:`%${searchData.carModel}%` });
+    }
+
+    if(searchData.makerId){
+      qb.andWhere("parts.makerId like :name", { name:`%${searchData.makerId}%` });
+    }
+
+    if(searchData.ean){
+      qb.andWhere("parts.ean like :name", { name:`%${searchData.ean}%` });
+    }
+
+    return qb.getMany();
   }
 
   public async addPart(partData: NewProductDto): Promise<void> {

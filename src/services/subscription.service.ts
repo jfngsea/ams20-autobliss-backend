@@ -1,5 +1,9 @@
+import { User } from "../interfaces/users.interface";
+
 export class SubscriptionService {
-  public createSubscription(): boolean {
+
+  public createSubscription(user: User, prodId: number): boolean {
+    
     return false;
   }
 

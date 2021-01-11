@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { Product } from '../interfaces/product.interface';
 
 @Entity()
@@ -15,19 +15,19 @@ export class Part implements Product {
   @Column('text')
   carModel: string;
 
-  @Column('int')
+  @Column('numeric')
   price: number;
 
-  @Column('int')
+  @Column('numeric')
   quantity: number;
 
   @Column('text', { default: '' })
   imgUrl: string;
 
-  @Column('int')
+  @Column('numeric')
   makerId: number;
 
-  @Column('int')
+  @Column('numeric')
   ean: number;
 
   @Column('uuid')

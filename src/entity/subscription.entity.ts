@@ -5,9 +5,12 @@ export class Subscription {
   @PrimaryGeneratedColumn('increment', { type: 'int' })
   subId: number;
 
-  @Column('int')
-  userId: number;
-
-  @Column('int')
+  @Column('numeric')
   partId: number;
+
+  @Column('text')
+  userId: string;
+
+  @Column('text')
+  userEmail: string;
 }

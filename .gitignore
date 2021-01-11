@@ -8,3 +8,4 @@ node_modules
 jest.config.js
 swagger.yaml
 tsconfig_og.json
+logs/

@@ -24,6 +24,32 @@ advSearchButton.onclick = function () {
     advSearchButton.style.display = 'none';
 }
 
+function subscribe(partId) {
+    fetch('/api/product/subscribe', {
+        body: JSON.stringify({
+            partId:partId
+        }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        method: "post",
+    })
+    .then( res => {
+        if(res.status === 200){
+           alert("Subscribed"); 
+        } else {
+            return res.text();
+        }
+        
+    })
+    .then( txt => {
+        alert(txt);
+    })
+    .catch( error => {
+        console.error(error);
+    })
+}
+
 function refreshSuggestions() {
     console.log("refreshing product suggestions...");
 
@@ -47,6 +73,7 @@ function refreshSuggestions() {
                                 <p class="price">${part.price}</p>
                                 <p class="carBrand">${part.carBrand}</p>
                                 <p class="carModel">${part.carModel}</p>
+                                <button onclick="javascript:subscribe(${part.id})">Subscribe to changes</button>
                             </div>
                     `;
 
@@ -145,7 +172,7 @@ getVndrPrd.onclick = () => {
                         method: "put"
                     }).then((res) => {
                         if (res.status === 200 || res.status === 201) {
-                            alert("part added");
+                            alert("part updated");
 
                         } else {
                             alert("error occured");

@@ -77,13 +77,4 @@ export default class ProductService {
     const partRepo = getRepository(Part);
     await partRepo.delete({ id: id });
   }
-
-  public async createSubscription(user: User, prodId: number): Promise<boolean> {
-    const subRepo = getRepository(Subscription);
-    //const sub: Subscription = {subId: -1,partId:prodId, userEmail:user.email, userId: user.id}
-    //{partId:prodId, userEmail:user.email, userId: user.id}
-    const result = await subRepo.save({partId:prodId, userEmail:user.email, userId:user.id.toString()});
-    if(!result){throw new HttpException(500, "Sub Db error")}
-    return true;
-  }
 }

@@ -5,7 +5,6 @@ import validationMiddleware from '../middlewares/validation.middleware';
 import ProductController from '../controllers/product.controller';
 import authMiddleware from '../middlewares/auth.middleware';
 import checkUserRoleMiddleware from '../middlewares/checkUserRole.middleware';
-import { SubDto } from '../dtos/subscription.dto';
 
 class ProductRoute implements Route {
   path = '/api/product';
@@ -25,8 +24,6 @@ class ProductRoute implements Route {
     this.router.get('/vendorProducts', this.controller.getVendorProducts);
     this.router.put('/vendorProducts', validationMiddleware(UpdateProductDto, 'body'), this.controller.updateVendorProducts);
     this.router.post('/deleteVendorProducts', validationMiddleware(DeleteProductDto, 'body'), this.controller.deleteVendorProducts);
-    
-    this.router.post('/subscribe', authMiddleware, validationMiddleware(SubDto, 'body'), this.controller.newSub);
   }
 }
 

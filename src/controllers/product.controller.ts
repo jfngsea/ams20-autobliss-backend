@@ -4,7 +4,7 @@ import { DeleteProductDto, NewProductDto, SearchDto, UpdateProductDto } from '..
 import { Part } from '../entity/product.entity';
 import { RequestWithUser } from '../interfaces/auth.interface';
 import ProductService from '../services/product.service';
-import { SubDto } from '../dtos/subscription.dto';
+import { NewSubDto } from '../dtos/subscription.dto';
 
 class ProductController {
   public service = new ProductService();
@@ -70,19 +70,6 @@ class ProductController {
       await this.service.deleteVendorPart(deleteProduct.id);
 
       res.status(200).json({message:`Part ${deleteProduct.id} has been deleted`});
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  public newSub = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
-    try {
-        const sub: SubDto = req.body;
-        const result = await this.service.createSubscription(req.user, sub.partId);
-        if(!result) {
-            throw new HttpException(500, 'Server Error');
-        }
-        res.status(200).json({message:`Subscription to part ${sub.partId} sucessful`});
     } catch (error) {
       next(error);
     }

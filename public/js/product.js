@@ -48,7 +48,7 @@ searchForm.addEventListener('submit', e => {
         method: "post",
     })
         .then(res => res.text())
-        .then(txt => JSON.parse(txt))
+        .then(txt => console.log(txt))
         .then(parts => {
             searchGallery.innerHTML ="";
             parts['results'].forEach((part, idx) => {

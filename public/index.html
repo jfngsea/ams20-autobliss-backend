@@ -7,6 +7,7 @@
     <script defer src="/static/app.js" type="application/javascript"></script>
     <script defer src="/static/js/auth.js" type="application/javascript"></script>
     <script defer src="/static/js/product.js" type="application/javascript"></script>
+    <script defer src="/static/js/user.js" type="application/javascript"></script>
 </head>
 
 <body>
@@ -83,6 +84,23 @@
         </div>
     </div>
 
+    <h2>User APi</h2>
+    <form id="newcard" >
+        <input type="text" name="cardName" placeholder="Name">
+        <input type="number" name="cardNumber" placeholder="number">
+        <input type="number" name="expMonth" placeholder="expMonth">
+        <input type="number" name="expYear" placeholder="expYear">
+        <input type="number" name="cvv" placeholder="cvv">
+        <input type="submit" value="add card">
+    </form>
+
+    <form id="newadr" >
+        <input type="text" name="name" placeholder="name">
+        <input type="text" name="address" placeholder="address">
+        <input type="text" name="zipCode" placeholder="zipCode">
+        <input type="text" name="city" placeholder="city">
+        <input type="submit" value="add adr">
+    </form>
 
     <div hidden id="templates">
         <div id="product-template">

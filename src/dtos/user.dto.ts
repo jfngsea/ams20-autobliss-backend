@@ -1,20 +1,20 @@
-import { IsCreditCard, IsNumber, IsPostalCode, IsString, IsUUID, Max } from "class-validator";
+import { IsCreditCard, IsNumberString, IsPostalCode, IsString, IsUUID } from "class-validator";
 
 export class NewCardDto {
     @IsString()
     cardName: string;
 
-    @IsCreditCard()
+    //@IsCreditCard()
+    @IsNumberString()
     cardNumber: string;
 
-    @IsNumber()
-    @Max(12)
+    @IsNumberString()
     expMonth: number;
 
-    @IsNumber()
+    @IsNumberString()
     expYear: number;
 
-    @IsNumber()
+    @IsNumberString()
     cvv: number
 }
 

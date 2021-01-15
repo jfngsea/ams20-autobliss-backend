@@ -7,10 +7,12 @@ import { User } from '../interfaces/users.interface';
 const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
   try {
     const cookies = req.cookies;
-
-    if (cookies && cookies.Authorization) {
+    const authHeader = req.header('Authorization');
+    
+    if ( authHeader || (cookies && cookies.Authorization) ) {
+      const token = authHeader || cookies.Authorization;
       const secret: string = <string>process.env.JWT_SECRET;
-      const userData = (await jwt.verify(<string>req.cookies.Authorization, secret)) as User;
+      const userData = (await jwt.verify(<string>token, secret)) as User;
 
       if (userData) {
         req.user = userData;

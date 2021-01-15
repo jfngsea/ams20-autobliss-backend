@@ -22,23 +22,19 @@ class AuthController {
   public logIn = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const loginData: LoginUserDto = req.body;
-      const { accessTokenData, refreshTokenData, findUser } = await this.authService.login(loginData);
-      const authCookie: CookieData = this.authService.createAccessCookie(accessTokenData);
-      const refreshCookie = this.authService.createRefreshCookie(refreshTokenData);
+      const { accessTokenData, findUser } = await this.authService.login(loginData);
+      //const authCookie: CookieData = this.authService.createAccessCookie(accessTokenData);
+      //const refreshCookie = this.authService.createRefreshCookie(refreshTokenData);
 
-      const userData: User = {
-        email: findUser.email,
-        id: findUser.id,
-        name: findUser.name,
-        role: findUser.role,
-      };
-
+      
       if (findUser) {
-        res.cookie(authCookie.name, authCookie.val, authCookie.options);
-        res.cookie(refreshCookie.name, refreshCookie.val, refreshCookie.options);
+        //res.cookie(authCookie.name, authCookie.val, authCookie.options);
+        //res.cookie(refreshCookie.name, refreshCookie.val, refreshCookie.options);
+        res.status(200).json({ user: findUser, authToken: accessTokenData});
+      
       }
-
-      res.status(200).json({ user: userData, message: 'login' });
+      
+      res.status(409).json({ user: null, authToken: null});
     } catch (error) {
       next(error);
     }
@@ -49,8 +45,8 @@ class AuthController {
       const userData: User = req.user;
       await this.authService.logout(userData);
 
-      res.cookie('Authorization', '');
-      res.cookie('RefreshToken', '');
+      //res.cookie('Authorization', '');
+      //res.cookie('RefreshToken', '');
       res.status(200).json({ message: 'User successfully Loged Out' });
     } catch (error) {
       next(error);

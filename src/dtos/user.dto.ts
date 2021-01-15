@@ -1,4 +1,4 @@
-import { IsCreditCard, IsNumberString, IsPostalCode, IsString, IsUUID } from "class-validator";
+import { IsNumberString, IsPostalCode, IsString, IsUUID } from "class-validator";
 
 export class NewCardDto {
     @IsString()

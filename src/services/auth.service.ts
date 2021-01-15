@@ -24,7 +24,7 @@ class AuthService {
     return createUserData;
   }
 
-  public async login(userData: LoginUserDto): Promise<{ accessTokenData: TokenData; refreshTokenData: TokenData; findUser: User }> {
+  public async login(userData: LoginUserDto): Promise<{ accessTokenData: TokenData; findUser: User }> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 
     const userRepository = getRepository(this.users);
@@ -35,9 +35,10 @@ class AuthService {
     if (!isPasswordMatching) throw new HttpException(409, 'Your password not matching');
 
     const accessToken = this.createAccessToken(findUser);
-    const refreshToken = await this.createRefreshToken(findUser);
+    //const refreshToken = await this.createRefreshToken(findUser);
 
-    return { accessTokenData: accessToken, refreshTokenData: refreshToken, findUser };
+    //return { accessTokenData: accessToken, refreshTokenData: refreshToken, findUser };
+    return { accessTokenData: accessToken, findUser };
   }
 
   public async logout(userData: User): Promise<AuthUser> {
@@ -53,7 +54,8 @@ class AuthService {
   public createAccessToken(user: AuthUser): TokenData {
     const dataStoredInToken: DataStoredInAccessToken = { id: user.id, email: user.email, name: user.name, role: user.role };
     const secret: string = <string>process.env.JWT_SECRET;
-    const expiresIn: number = 60 * 5; //5min
+    //const expiresIn: number = 60 * 5; //5min
+    const expiresIn: number = 60 * 60 * 24 * 7; //7d
     const token = jwt.sign(dataStoredInToken, secret, { expiresIn });
 
     return { expiresIn, token: token };

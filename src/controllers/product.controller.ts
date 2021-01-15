@@ -4,7 +4,6 @@ import { DeleteProductDto, NewProductDto, SearchDto, UpdateProductDto } from '..
 import { Part } from '../entity/product.entity';
 import { RequestWithUser } from '../interfaces/auth.interface';
 import ProductService from '../services/product.service';
-import { NewSubDto } from '../dtos/subscription.dto';
 
 class ProductController {
   public service = new ProductService();

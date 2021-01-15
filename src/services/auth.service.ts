@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { CreateUserDto, LoginUserDto } from '../dtos/users.dto';
+import { CreateUserDto, LoginUserDto } from '../dtos/auth.dto';
 import HttpException from '../exceptions/HttpException';
 import { CookieData, DataStoredInAccessToken, DataStoredInRefreshToken, TokenData } from '../interfaces/auth.interface';
 import { User } from '../interfaces/users.interface';

@@ -1,66 +1,35 @@
-/*
-import { getRepository } from 'typeorm';
-import bcrypt from 'bcrypt';
-import { CreateUserDto } from '../dtos/users.dto';
-import HttpException from '../exceptions/HttpException';
-import { User } from '../interfaces/users.interface';
-import { AuthUser } from '../entity/users.entity';
-import { isEmpty } from '../utils/util';
-*/
+import { getRepository } from "typeorm";
+import { NewAddressDto, NewCardDto } from "../dtos/user.dto";
+import { Address } from "../entity/address.entity";
+import { Card } from "../entity/card.entity";
+import { User } from "../interfaces/users.interface";
+
 class UserService {
-  /*
-  public users = AuthUser;
-
-  public async findAllUser(): Promise<User[]> {
-    const userRepository = getRepository(this.users);
-    const users: User[] = await userRepository.find();
-    return users;
+  public async getCards(user: User) {
+    return getRepository(Card).find({userId: user.id});
+  } 
+  
+  public async addCard(user: User, card: NewCardDto) {
+    return getRepository(Card).save({...card, userId:user.id});
   }
 
-  public async findUserById(userId: number): Promise<User> {
-    const userRepository = getRepository(this.users);
-    const findUser: User = await userRepository.findOne({ where: { id: userId } });
-    if (!findUser) throw new HttpException(409, "You're not user");
-
-    return findUser;
+  public async remCard(cardId: string): Promise<boolean> {
+    await getRepository(Card).delete({cardId: cardId});
+    return true;
   }
 
-  public async createUser(userData: CreateUserDto): Promise<User> {
-    if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
-
-    const userRepository = getRepository(this.users);
-    const findUser: User = await userRepository.findOne({ where: { email: userData.email } });
-    if (findUser) throw new HttpException(409, `You're email ${userData.email} already exists`);
-
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const createUserData: User = await userRepository.save({ ...userData, password: hashedPassword });
-
-    return createUserData;
+  public async getAddresses(user: User) {
+    return getRepository(Address).find({userId: user.id});
+  } 
+  
+  public async addAddress(user: User, adr: NewAddressDto) {
+    return getRepository(Address).save({...adr, userId:user.id});
   }
 
-  public async updateUser(userId: number, userData: User): Promise<User> {
-    if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
-
-    const userRepository = getRepository(this.users);
-    const findUser: User = await userRepository.findOne({ where: { id: userId } });
-    if (!findUser) throw new HttpException(409, "You're not user");
-
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    await userRepository.update(userId, { ...userData, password: hashedPassword });
-
-    const updateUser: User = await userRepository.findOne({ where: { id: userId } });
-    return updateUser;
+  public async remAddress(addressId: string): Promise<boolean> {
+    await getRepository(Address).delete({id: addressId});
+    return true;
   }
-
-  public async deleteUser(userId: number): Promise<User> {
-    const userRepository = getRepository(this.users);
-    const findUser: User = await userRepository.findOne({ where: { id: userId } });
-    if (!findUser) throw new HttpException(409, "You're not user");
-
-    await userRepository.delete({ id: userId });
-    return findUser;
-  }
-  */
 }
 
 export default UserService;

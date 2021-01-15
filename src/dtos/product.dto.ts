@@ -52,7 +52,7 @@ export class NewProductDto extends ProbuctBaseDto {
   //doesnnt matter what value comes from endpoint, value will be overriden after
   @IsNumber()
   @IsOptional()
-  public vendorId: number;
+  public vendorId: string;
 }
 
 export class UpdateProductDto extends ProbuctBaseDto {

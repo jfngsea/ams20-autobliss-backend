@@ -6,7 +6,7 @@ import { User } from '../interfaces/users.interface';
 @Unique(['email'])
 export class AuthUser implements User {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column('text')
   name: string;

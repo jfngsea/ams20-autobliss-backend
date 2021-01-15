@@ -7,5 +7,5 @@ export interface Product {
   imgUrl: string;
   makerId: number;
   ean: number;
-  vendorId: number;
+  vendorId: string;
 }

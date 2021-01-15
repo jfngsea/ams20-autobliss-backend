@@ -2,14 +2,14 @@ import { CookieOptions, Request } from 'express';
 import { User } from './users.interface';
 
 export interface DataStoredInAccessToken {
-  id: number;
+  id: string;
   name: string;
   email: string;
   role: string;
 }
 
 export interface DataStoredInRefreshToken {
-  id: number;
+  id: string;
   version: number;
 }
 

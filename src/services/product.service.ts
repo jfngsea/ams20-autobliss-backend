@@ -1,7 +1,6 @@
 import { getRepository } from 'typeorm';
 import { NewProductDto, SearchDto } from '../dtos/product.dto';
 import { Part } from '../entity/product.entity';
-import { Subscription } from '../entity/subscription.entity';
 import HttpException from '../exceptions/HttpException';
 import { User } from '../interfaces/users.interface';
 import { isEmpty } from '../utils/util';

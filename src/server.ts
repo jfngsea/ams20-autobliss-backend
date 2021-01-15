@@ -6,6 +6,7 @@ import IndexRoute from './routes/index.route';
 import AuthRoute from './routes/auth.route';
 import ProductRoute from './routes/product.route';
 import SubscriptionRoute from './routes/subscription.route';
+import UserRoute from './routes/user.route';
 
 validateEnv();
 
@@ -16,6 +17,6 @@ process.on('uncaughtException', function (exception) {
 });
 
 (async () => {
-  const app = await new App([new IndexRoute(), new AuthRoute(), new ProductRoute(), new SubscriptionRoute()]);
+  const app = await new App([new IndexRoute(), new AuthRoute(), new ProductRoute(), new SubscriptionRoute(), new UserRoute]);
   app.listen();
 })();

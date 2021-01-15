@@ -31,5 +31,5 @@ export class Part implements Product {
   ean: number;
 
   @Column('uuid')
-  vendorId: number;
+  vendorId: string;
 }

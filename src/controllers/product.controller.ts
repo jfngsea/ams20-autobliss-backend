@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import HttpException from '../exceptions/HttpException';
-import { DeleteProductDto, NewProductDto, SearchDto, UpdateProductDto } from '../dtos/product.dto';
+import { ProductDto, NewProductDto, SearchDto, UpdateProductDto } from '../dtos/product.dto';
 import { Part } from '../entity/product.entity';
 import { RequestWithUser } from '../interfaces/auth.interface';
 import ProductService from '../services/product.service';
@@ -26,6 +26,16 @@ class ProductController {
       next(error);
     }
   };
+
+  public getProductInfo = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const partId: ProductDto = req.body;
+      const part: Part = await this.service.getPartData(partId);
+      res.status(200).json({part:part});
+    } catch (error) {
+      next(error);
+    }
+  }
 
   public addProduct = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -65,7 +75,7 @@ class ProductController {
 
   public deleteVendorProducts = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const deleteProduct: DeleteProductDto = req.body;
+      const deleteProduct: ProductDto = req.body;
       await this.service.deleteVendorPart(deleteProduct.id);
 
       res.status(200).json({message:`Part ${deleteProduct.id} has been deleted`});

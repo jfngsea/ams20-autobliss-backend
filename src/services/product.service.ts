@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { NewProductDto, SearchDto } from '../dtos/product.dto';
+import { NewProductDto, ProductDto, SearchDto } from '../dtos/product.dto';
 import { Part } from '../entity/product.entity';
 import HttpException from '../exceptions/HttpException';
 import { User } from '../interfaces/users.interface';
@@ -42,6 +42,11 @@ export default class ProductService {
     }
 
     return qb.getMany();
+  }
+
+  public async getPartData(partId: ProductDto): Promise<Part> {
+    const part = await getRepository(Part).find({id:partId.id});
+    return part[0];
   }
 
   public async addPart(partData: NewProductDto): Promise<void> {

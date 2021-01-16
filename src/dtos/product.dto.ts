@@ -60,7 +60,7 @@ export class UpdateProductDto extends ProbuctBaseDto {
   public id: number;
 }
 
-export class DeleteProductDto {
+export class ProductDto {
   @IsNumber()
   public id: number;
 }

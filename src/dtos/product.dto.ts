@@ -26,10 +26,19 @@ class ProbuctBaseDto {
   name: string;
 
   @IsString()
-  carBrand: string;
+  description: string;
 
   @IsString()
-  carModel: string;
+  brand: string;
+
+  @IsString()
+  model: string;
+
+  @IsString()
+  country: string;
+
+  @IsString()
+  condition: string;
 
   @IsNumberString()
   price: number;
@@ -63,4 +72,13 @@ export class UpdateProductDto extends ProbuctBaseDto {
 export class ProductDto {
   @IsNumberString()
   public id: number;
+}
+
+
+export class NewCommentDto {
+  @IsNumberString()
+  partId: number;
+
+  @IsString()
+  value: string;
 }

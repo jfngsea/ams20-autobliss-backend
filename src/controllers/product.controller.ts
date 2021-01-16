@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import HttpException from '../exceptions/HttpException';
-import { ProductDto, NewProductDto, SearchDto, UpdateProductDto } from '../dtos/product.dto';
+import { ProductDto, NewProductDto, SearchDto, UpdateProductDto, NewCommentDto } from '../dtos/product.dto';
 import { Part } from '../entity/product.entity';
 import { RequestWithUser } from '../interfaces/auth.interface';
 import ProductService from '../services/product.service';
@@ -83,6 +83,31 @@ class ProductController {
       next(error);
     }
   };
+
+  /* ---COMMENTS --- */
+
+  public getComments = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const part: ProductDto = req.body();
+      const result = await this.service.getComments(part);
+      res.status(200).json({comments: result});
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  public addComment = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const comment: NewCommentDto = req.body;
+      const result = await this.service.addComent(req.user, comment);
+      if(!result) {
+        next(new HttpException(500, "Adding new comment was unsuccessful"));
+      }
+      res.status(200).json({message:"New Comment added with success"});
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export default ProductController;

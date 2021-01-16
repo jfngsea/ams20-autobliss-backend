@@ -10,10 +10,19 @@ export class Part implements Product {
   name: string;
 
   @Column('text')
-  carBrand: string;
+  description: string;
 
   @Column('text')
-  carModel: string;
+  brand: string;
+
+  @Column('text')
+  model: string;
+
+  @Column('text')
+  country: string;
+
+  @Column('text')
+  condition: string;
 
   @Column('numeric')
   price: number;

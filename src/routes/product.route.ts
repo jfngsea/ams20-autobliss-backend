@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ProductDto, NewProductDto, SearchDto, UpdateProductDto } from '../dtos/product.dto';
+import { ProductDto, NewProductDto, SearchDto, UpdateProductDto, NewCommentDto } from '../dtos/product.dto';
 import Route from '../interfaces/routes.interface';
 import validationMiddleware from '../middlewares/validation.middleware';
 import ProductController from '../controllers/product.controller';
@@ -26,6 +26,9 @@ class ProductRoute implements Route {
     this.router.get('/vendorProducts', this.controller.getVendorProducts);
     this.router.put('/vendorProducts', validationMiddleware(UpdateProductDto, 'body'), this.controller.updateVendorProducts);
     this.router.post('/deleteVendorProducts', validationMiddleware(ProductDto, 'body'), this.controller.deleteVendorProducts);
+
+    this.router.get('/comments', validationMiddleware(ProductDto, 'body'), this.controller.getComments);
+    this.router.post('/comments', validationMiddleware(NewCommentDto, 'body'), authMiddleware, this.controller.addComment);
   }
 }
 

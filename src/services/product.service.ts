@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
-import { NewProductDto, ProductDto, SearchDto } from '../dtos/product.dto';
+import { NewCommentDto, NewProductDto, ProductDto, SearchDto } from '../dtos/product.dto';
+import { Comment } from '../entity/comment.enity';
 import { Part } from '../entity/product.entity';
 import HttpException from '../exceptions/HttpException';
 import { User } from '../interfaces/users.interface';
@@ -80,5 +81,19 @@ export default class ProductService {
   public async deleteVendorPart(id: number): Promise<void> {
     const partRepo = getRepository(Part);
     await partRepo.delete({ id: id });
+  }
+
+  public async getComments(part: ProductDto): Promise<Comment[]> {
+    return getRepository(Comment).find({ partId: part.id});
+  }
+
+  public async addComent(user: User, comment: NewCommentDto): Promise<boolean>{
+    getRepository(Comment).save({
+      userId:user.id,
+      userName:user.name,
+      partId:comment.partId,
+      content: comment.value
+    })
+    return true;
   }
 }

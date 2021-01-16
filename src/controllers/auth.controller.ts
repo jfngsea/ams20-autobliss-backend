@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto, LoginUserDto } from '../dtos/auth.dto';
+import HttpException from '../exceptions/HttpException';
 import { CookieData, RequestWithUser, TokenData } from '../interfaces/auth.interface';
 import { User } from '../interfaces/users.interface';
 import AuthService from '../services/auth.service';
@@ -32,9 +33,10 @@ class AuthController {
         //res.cookie(refreshCookie.name, refreshCookie.val, refreshCookie.options);
         res.status(200).json({ user: findUser, authToken: accessTokenData});
       
+      } else {
+        next(new HttpException(409, "Wrong credentials"))
       }
-      
-      res.status(409).json({ user: null, authToken: null});
+    
     } catch (error) {
       next(error);
     }

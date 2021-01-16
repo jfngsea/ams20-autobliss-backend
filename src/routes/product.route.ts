@@ -19,7 +19,7 @@ class ProductRoute implements Route {
     this.router.get('/suggestions', this.controller.generalSuggestions);
     this.router.post('/search', validationMiddleware(SearchDto, 'body'), this.controller.search);
 
-    this.router.get('/part', validationMiddleware(ProductDto, 'body'));
+    this.router.post('/part', validationMiddleware(ProductDto, 'body'), this.controller.getProductInfo);
 
     this.router.use('/vendorProducts', authMiddleware, checkUserRoleMiddleware('vendor'));
     this.router.post('/vendorProducts', validationMiddleware(NewProductDto, 'body'), this.controller.addProduct);

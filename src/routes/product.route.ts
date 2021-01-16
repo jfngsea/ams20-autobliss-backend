@@ -27,8 +27,8 @@ class ProductRoute implements Route {
     this.router.put('/vendorProducts', validationMiddleware(UpdateProductDto, 'body'), this.controller.updateVendorProducts);
     this.router.post('/deleteVendorProducts', validationMiddleware(ProductDto, 'body'), this.controller.deleteVendorProducts);
 
-    this.router.get('/comments', validationMiddleware(ProductDto, 'body'), this.controller.getComments);
-    this.router.post('/comments', validationMiddleware(NewCommentDto, 'body'), authMiddleware, this.controller.addComment);
+    this.router.post('/comments', validationMiddleware(ProductDto, 'body'), this.controller.getComments);
+    this.router.put('/comments', validationMiddleware(NewCommentDto, 'body'), authMiddleware, this.controller.addComment);
   }
 }
 

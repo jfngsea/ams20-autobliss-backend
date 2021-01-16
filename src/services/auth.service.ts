@@ -24,7 +24,7 @@ class AuthService {
     return createUserData;
   }
 
-  public async login(userData: LoginUserDto): Promise<{ accessTokenData: TokenData; findUser: User }> {
+  public async login(userData: LoginUserDto): Promise<{ accessTokenData: TokenData, refreshTokenData: TokenData; findUser: User }> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 
     const userRepository = getRepository(this.users);
@@ -35,10 +35,10 @@ class AuthService {
     if (!isPasswordMatching) throw new HttpException(409, 'Your password not matching');
 
     const accessToken = this.createAccessToken(findUser);
-    //const refreshToken = await this.createRefreshToken(findUser);
+    const refreshToken = await this.createRefreshToken(findUser);
 
-    //return { accessTokenData: accessToken, refreshTokenData: refreshToken, findUser };
-    return { accessTokenData: accessToken, findUser };
+    return { accessTokenData: accessToken, refreshTokenData: refreshToken, findUser };
+    //return { accessTokenData: accessToken, findUser };
   }
 
   public async logout(userData: User): Promise<AuthUser> {

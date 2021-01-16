@@ -23,14 +23,14 @@ class AuthController {
   public logIn = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const loginData: LoginUserDto = req.body;
-      const { accessTokenData, findUser } = await this.authService.login(loginData);
-      //const authCookie: CookieData = this.authService.createAccessCookie(accessTokenData);
-      //const refreshCookie = this.authService.createRefreshCookie(refreshTokenData);
+      const { accessTokenData, refreshTokenData, findUser } = await this.authService.login(loginData);
+      const authCookie: CookieData = this.authService.createAccessCookie(accessTokenData);
+      const refreshCookie = this.authService.createRefreshCookie(refreshTokenData);
 
       
       if (findUser) {
-        //res.cookie(authCookie.name, authCookie.val, authCookie.options);
-        //res.cookie(refreshCookie.name, refreshCookie.val, refreshCookie.options);
+        res.cookie(authCookie.name, authCookie.val, authCookie.options);
+        res.cookie(refreshCookie.name, refreshCookie.val, refreshCookie.options);
         res.status(200).json({ user: findUser, authToken: accessTokenData});
       
       } else {

@@ -37,22 +37,27 @@ export class PartSubscriber implements EntitySubscriberInterface<Part> {
 
     if(cols.includes('price')){
       const mails = await this.getEmails(event);
-      mail = {
+      if(mails.length > 0){
+        mail = {
         from:'autobliss@outlook.pt',
         to:mails,
         subject: `Peça #${part.id}: ${part.name} teve uma alteração de preço`,
         text:`Houve uma alteração de preço na peça #${part.id}: ${part.name} para ${part.price}.\n AutoBliss`
       }
       await this.transporter.sendMail(mail);
+      }
+      
     } else if (cols.includes('quantity')) {
       const mails = await this.getEmails(event);
-      mail = {
-        from:'autobliss@outlook.pt',
-        to:mails,
-        subject: `Peça #${part.id}: ${part.name} teve uma alteração de quantidade`,
-        text:`Houve uma alteração de quantidade na peça #${part.id}: ${part.name} para ${part.quantity}.\n AutoBliss`
+      if(mails.length > 0){
+        mail = {
+          from:'autobliss@outlook.pt',
+          to:mails,
+          subject: `Peça #${part.id}: ${part.name} teve uma alteração de quantidade`,
+          text:`Houve uma alteração de quantidade na peça #${part.id}: ${part.name} para ${part.quantity}.\n AutoBliss`
+        }
+        await this.transporter.sendMail(mail);
       }
-      await this.transporter.sendMail(mail);
     }
   }
 

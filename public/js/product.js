@@ -3,14 +3,14 @@
 /* ---- SUBSCRIBE ---- */
 
 function subscribe(partId) {
-    fetch('/api/product/subscribe', {
+    fetch('/api/subscription', {
         body: JSON.stringify({
             partId: partId
         }),
         headers: {
             "Content-Type": "application/json",
         },
-        method: "post",
+        method: "put",
     })
         .then(res => {
             if (res.status === 200) {

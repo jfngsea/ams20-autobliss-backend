@@ -31,7 +31,7 @@ class AuthController {
       if (findUser) {
         res.cookie(authCookie.name, authCookie.val, authCookie.options);
         res.cookie(refreshCookie.name, refreshCookie.val, refreshCookie.options);
-        res.status(200).json({ user: findUser, authToken: accessTokenData});
+        res.status(200).json({ user: findUser, authToken: accessTokenData.token});
       
       } else {
         next(new HttpException(409, "Wrong credentials"))

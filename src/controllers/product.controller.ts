@@ -88,7 +88,7 @@ class ProductController {
 
   public getComments = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const part: ProductDto = req.body();
+      const part: ProductDto = req.body;
       const result = await this.service.getComments(part);
       res.status(200).json({comments: result});
     } catch (error) {

@@ -17,8 +17,8 @@ class SubscriptionRoute implements Route {
   private initializeRoutes() {
     this.router.use('/', authMiddleware);
 
-    this.router.get('/', this.controller.getSubs);
-    this.router.post('/', authMiddleware, validationMiddleware(NewSubDto, 'body'), this.controller.addSub);
+    this.router.post('/', this.controller.getSubs);
+    this.router.put('/', authMiddleware, validationMiddleware(NewSubDto, 'body'), this.controller.addSub);
     this.router.delete('/', authMiddleware, validationMiddleware(DeleteSubDto, 'body'), this.controller.deleteSub);
   }
 }

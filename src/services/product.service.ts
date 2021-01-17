@@ -9,7 +9,7 @@ import { isEmpty } from '../utils/util';
 export default class ProductService {
   public async getSugestedGeneral(): Promise<Part[]> {
     try {
-      const data: Part[] = await getRepository(Part).createQueryBuilder().select().orderBy().limit(6).getMany();
+      const data: Part[] = await getRepository(Part).createQueryBuilder().select().getMany();
       return data;
     } catch (error) {
       throw new HttpException(500, 'DB error');

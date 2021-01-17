@@ -65,7 +65,7 @@ export class NewProductDto extends ProbuctBaseDto {
 }
 
 export class UpdateProductDto extends ProbuctBaseDto {
-  @IsNumberString()
+  @IsNumber()
   public id: number;
 }
 

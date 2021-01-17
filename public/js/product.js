@@ -175,9 +175,13 @@ getVndrPrd.onclick = () => {
         .then(vendorParts => {
             vendorParts['parts'].forEach((part, idx) => {
                 let form = `<form id="editProductForm${idx}">
+                                
                                 <input type="text" name="name" placeholder="name" value=${part.name}>
-                                <input type="text" name="carBrand" placeholder="Car Brand" value=${part.carBrand}>
-                                <input type="text" name="carModel" placeholder="Car Model" value=${part.carModel}>
+                                <input type="text" name="description" placeholder="description" value=${part.description}>
+                                <input type="text" name="country" placeholder="Country" value="${part.description}">
+                                <input type="text" name="brand" placeholder="Car Brand" value=${part.brand}>
+                                <input type="text" name="model" placeholder="Car Model" value=${part.model}>
+                                <input type="text" name="condition" placeholder="Condition" value="${part.condition}">
                                 <input type="number" name="price" placeholder="Price" value=${part.price} >
                                 <input type="number" name="quantity" placeholder="Quantity" value=${part.quantity}>
                                 <input type="number" name='makerId' placeholder="Manufacturer Code" value=${part.makerId}>

@@ -25,10 +25,11 @@ export class PartSubscriber implements EntitySubscriberInterface<Part> {
 
   afterInsert(event: InsertEvent<Part>) {
     //console.log(event.metadata.generatedColumns);
-    console.log('oh well');
+    console.log('part inserted');
   }
 
  async afterUpdate(event: UpdateEvent<Part>) {
+    console.log("part updated")
     const cols = event.updatedColumns.map( metadata => metadata.propertyName);
     const part = event.entity;
 
